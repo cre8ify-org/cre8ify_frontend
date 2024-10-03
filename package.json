@@ -10,10 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.11.8",
     "@chakra-ui/icons": "^2.2.1",
     "@chakra-ui/react": "^2.9.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@fontsource-variable/suse": "^5.1.0",
+    "@fontsource/lato": "^5.1.0",
     "@web3modal/ethers": "^5.1.10",
     "apexcharts": "^3.54.0",
     "dotenv": "^16.4.5",

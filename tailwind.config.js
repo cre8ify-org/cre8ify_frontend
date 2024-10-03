@@ -2,7 +2,10 @@
 export default {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
-    extend: {},
+    fontFamily: {
+      'suse': ['SUSE', 'sans-serif'],
+      'lato': ['Lato', 'sans-serif']
+    },
   },
   plugins: [],
 }
