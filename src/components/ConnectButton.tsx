@@ -11,20 +11,22 @@ export default function ConnectButton() {
         <w3m-button size="sm" />
       ) : (
         <Button
-          bgGradient="linear(to-r, #e94c91, #5555fb)"
+          bg={'#9333ea'}
           borderRadius={"100rem"}
           border={"none"}
+          p={'1rem 2rem'}
           color={"#fff"}
           transition={"all .5s ease-in-out"}
           w={"150px"}
           _hover={{
-            bgGradient: "linear(to-r, #e94c91, #5555fb)",
+            bg: "#7e22ce",
             border: "none",
           }}
           _focus={{ outline: "none" }}
           onClick={() => open()}
+          className="font-suse"
         >
-          Connect Wallet
+          Launch App
         </Button>
       )}
     </>
