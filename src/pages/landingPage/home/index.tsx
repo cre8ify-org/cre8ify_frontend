@@ -10,7 +10,7 @@ export default function HomePage() {
       <div className="min-h-screen bg-black text-white flex flex-col font-suse">
         <main className="flex-grow">
           {/* Hero Section */}
-          <section className="bg-gradient-to-r from-[#230735] to-black py-20">
+          <section className="bg-gradient-to-r from-[#230735] to-black pb-16 pt-28">
             <div className="max-w-[1100px] mx-auto px-4 flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
                 <h1 className="text-5xl md:text-6xl font-bold mb-6 font-lato">Revolutionize Your <br /> Content Creation</h1>
@@ -148,7 +148,7 @@ export default function HomePage() {
           <section className="py-16 bg-gradient-to-r from-[#230735] to-black">
             <div className="max-w-[1100px] mx-auto px-4 flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
-                <h2 className="text-5xl font-bold mb-6 font-lato">Ready to Revolutionize Your Content Creation?</h2>
+                <h2 className="text-4xl lg:text-5xl font-bold mb-6 font-lato">Ready to Revolutionize Your Content Creation?</h2>
                 <p className="text-xl mb-8 max-w-2xl">Join our community of forward-thinking creators and start sharing your vision with the world.</p>
                 <div className="w-full">
                   <Button bg={'#9333ea'} borderRadius={"100rem"} border={"none"} display={'inline-flex'} p={'1.7rem 2rem'} color={"#fff"} transition={"all .5s ease-in-out"} w={"250px"} _hover={{ bg: "#7e22ce", border: "none" }} _focus={{ outline: "none" }} className="font-suse">Launch App</Button>

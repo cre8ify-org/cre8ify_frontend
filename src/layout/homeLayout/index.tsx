@@ -60,7 +60,7 @@ export default function HomeLayout(props: any) {
           </div>
           <nav className="hidden md:flex space-x-6 font-suse">
             <NavLink to="/" className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Home</NavLink>
-            <NavLink to="/about" className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">About</NavLink>
+            <NavLink to="/about-us" className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">About</NavLink>
             <NavLink to="/contact" className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Contact</NavLink>
             <NavLink to="/faq" className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">FAQ</NavLink>
           </nav>
@@ -91,7 +91,7 @@ export default function HomeLayout(props: any) {
               >
                 <Flex gap={"2rem"} direction={"column"} align={"center"}>
                   <NavLink to="/" className="text-white font-suse py-1 px-1 transition-all hover:text-[#8b5cf6]">Home</NavLink>
-                  <NavLink to="/about" className="text-white font-suse py-1 px-1 transition-all hover:text-[#8b5cf6]">About</NavLink>
+                  <NavLink to="/about-us" className="text-white font-suse py-1 px-1 transition-all hover:text-[#8b5cf6]">About</NavLink>
                   <NavLink to="/profile" className="text-white font-suse py-1 px-1 transition-all hover:text-[#8b5cf6]">Profile</NavLink>
                   <NavLink to="/contact" className="text-white font-suse py-1 px-1 transition-all hover:text-[#8b5cf6]">Contact</NavLink>
                   <NavLink to="/faq" className="text-white font-suse py-1 px-1 transition-all hover:text-[#8b5cf6]">FAQ</NavLink>
@@ -114,7 +114,7 @@ export default function HomeLayout(props: any) {
         </div>
       </header>
 
-      <Box>
+      <Box className='font-suse'>
         {props.children}
       </Box>
 
