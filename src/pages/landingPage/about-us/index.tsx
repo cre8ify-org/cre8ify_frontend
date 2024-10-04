@@ -9,10 +9,23 @@ export default function AboutPage() {
       <div className="min-h-screen bg-black text-white flex flex-col">
         <main className="flex-grow">
           {/* Hero Section */}
-          <section className="bg-gradient-to-r from-[#230735] to-black pb-16 pt-32 text-center">
+          <section className="bg-gradient-to-r from-[#230735] to-black pb-16 pt-32 text-center relative">
             <div className="container mx-auto px-4">
               <h1 className="text-5xl md:text-7xl font-bold mb-6 font-lato">Redefining Content Creation</h1>
               <p className="text-xl mb-8 max-w-2xl mx-auto">Cre8ify is pioneering the future of decentralized content platforms, empowering creators and revolutionizing digital ownership.</p>
+            </div>
+            <div className="md:w-1/2 absolute bottom-[.1rem] -right-[5rem] lg:bottom-[2rem] lg:-right-[10rem]">
+              <svg viewBox="0 0 200 200" className="w-[30%] max-w-md mx-auto">
+                <defs>
+                  <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#4C1D95', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: '#9333ea', stopOpacity: 1 }} />
+                  </linearGradient>
+                </defs>
+                <circle cx="100" cy="100" r="50" fill="url(#grad1)" />
+                <circle cx="100" cy="100" r="30" fill="white" opacity="0.3" />
+                <text x="100" y="105" fontSize="16" fill="white" textAnchor="middle" className="font-suse">Cre8ify</text>
+              </svg>
             </div>
           </section>
 
@@ -105,7 +118,7 @@ export default function AboutPage() {
                 ].map((item, index) => (
                   <div key={index} className="flex mb-8 last:mb-0">
                     <div className="flex-shrink-0 w-24 text-right pr-4">
-                      <span className="text-purple-400 font-bold">{item.year}</span>
+                      <span className="text-[#9333ea] font-bold">{item.year}</span>
                     </div>
                     <div className="flex-grow pl-4 border-l border-purple-600 relative">
                       <svg viewBox="0 0 20 20" className="absolute -left-2.5 w-5 h-5">
