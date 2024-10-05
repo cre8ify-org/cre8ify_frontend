@@ -15,8 +15,9 @@ export default function HomePage() {
               <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
                 <h1 className="text-5xl md:text-6xl font-bold mb-6 font-lato">Revolutionize Your <br /> Content Creation</h1>
                 <p className="text-xl mb-8 max-w-2xl">Unleash your creativity, own your work, and connect directly with your audience on the world's first decentralized content platform.</p>
-                <div className="w-full">
+                <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
                   <Button bg={'#9333ea'} borderRadius={"100rem"} border={"none"} display={'inline-flex'} p={'1.7rem 2rem'} color={"#fff"} transition={"all .5s ease-in-out"} w={"250px"} _hover={{ bg: "#7e22ce", border: "none" }} _focus={{ outline: "none" }} className="font-suse">Launch App</Button>
+                  <Button bg={'transparent'} borderRadius={"100rem"} border={"1px solid #9333ea"} display={'inline-flex'} p={'1.7rem 2rem'} color={"#9333ea"} transition={"all .5s ease-in-out"} w={"250px"} _hover={{ bg: "#none" }} _focus={{ outline: "none" }} className="font-suse">Explore Content</Button>
                 </div>
               </div>
               <div className="md:w-1/2">
@@ -150,8 +151,9 @@ export default function HomePage() {
               <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
                 <h2 className="text-4xl lg:text-5xl font-bold mb-6 font-lato">Ready to Revolutionize Your Content Creation?</h2>
                 <p className="text-xl mb-8 max-w-2xl">Join our community of forward-thinking creators and start sharing your vision with the world.</p>
-                <div className="w-full">
+                <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
                   <Button bg={'#9333ea'} borderRadius={"100rem"} border={"none"} display={'inline-flex'} p={'1.7rem 2rem'} color={"#fff"} transition={"all .5s ease-in-out"} w={"250px"} _hover={{ bg: "#7e22ce", border: "none" }} _focus={{ outline: "none" }} className="font-suse">Launch App</Button>
+                  <Button bg={'transparent'} borderRadius={"100rem"} border={"1px solid #9333ea"} display={'inline-flex'} p={'1.7rem 2rem'} color={"#9333ea"} transition={"all .5s ease-in-out"} w={"250px"} _hover={{ bg: "#none" }} _focus={{ outline: "none" }} className="font-suse">Explore Content</Button>
                 </div>
               </div>
               <div className="md:w-1/2">
