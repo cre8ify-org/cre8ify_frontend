@@ -1,8 +1,7 @@
 import {
   Box,
   Flex,
-  GridItem,
-  Img,
+  Image,
   Text,
   Modal,
   ModalOverlay,
@@ -10,15 +9,24 @@ import {
   ModalBody,
   useDisclosure,
   Icon,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
+  // Menu,
+  // MenuButton,
+  // MenuList,
+  // MenuItem,
   Button,
+  // Grid,
+  // InputGroup,
+  // InputLeftElement,
+  // Input,
+  Avatar,
+  // Heading,
+  VStack,
 } from "@chakra-ui/react";
 import { SetStateAction, useEffect, useState } from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
-import { HiDotsHorizontal } from "react-icons/hi";
+// import { HiDotsHorizontal, HiSearch } from "react-icons/hi";
+import { ChevronRight, Trash2 } from "lucide-react";
+import useGetUserDetails from "../../../../hooks/useGetUserDetails";
 
 const Content = ({
   item,
@@ -29,15 +37,17 @@ const Content = ({
   handleDelete,
 }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [timestamp, setTimestamp] = useState(item.dateCreated); // Example timestamp
+  const [timestamp, setTimestamp] = useState(item.dateCreated);
   const [timeAgo, setTimeAgo] = useState<SetStateAction<any>>(null);
+  const { data: userDetails } = useGetUserDetails();
+
+  // console.log(item)
 
   useEffect(() => {
-    const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
-    const elapsedTime = currentTime - Number(timestamp); // Elapsed time in seconds
+    const currentTime = Math.floor(Date.now() / 1000);
+    const elapsedTime = currentTime - Number(timestamp);
 
     const getTimeAgo = (elapsedTime: any) => {
-      // Define time intervals in seconds
       const minute = 60;
       const hour = 60 * minute;
       const day = 24 * hour;
@@ -45,7 +55,6 @@ const Content = ({
       const month = 30 * day;
       const year = 365 * day;
 
-      // Determine the appropriate time interval
       if (elapsedTime < minute) {
         return "Just now";
       } else if (elapsedTime < hour) {
@@ -74,165 +83,111 @@ const Content = ({
   }, [timestamp]);
 
   return (
-    <GridItem
-      w={"100%"}
-      bg={"#1d1a27"}
-      p={".7rem"}
-      borderRadius={".5rem"}
-      boxShadow="0 5px 14px 0 #0001"
-    >
-      <Flex align={"center"} justify={"space-between"}>
-        <Flex align={"center"} gap={".5rem"} mb={"1rem"}>
-          <Img
-            src={`https://${item.creatorImage}`} // Assuming creatorProfile is the URL to the creator's profile image
-            w={["40px", "40px", "50px", "50px"]}
-            h={["40px", "40px", "50px", "50px"]}
-            objectFit={"cover"}
-            borderRadius={"100%"}
-            alt="Creator Profile"
-          />
-          <Flex align={"end"} gap={".4rem"}>
-            <Box>
-              <Text>{item.creatorProfile}</Text>
-            </Box>
-            <Text color={"#9f51c6"}>. {timeAgo}</Text>
-          </Flex>
-        </Flex>
-        <Menu>
-          {({ isOpen }) => (
-            <>
-              <MenuButton
-                minWidth={"0"}
-                bg={"none"}
-                aria-label={"More"}
-                px={"0"}
-                border={"none"}
-                _hover={{ background: "none", border: "none" }}
-                _focus={{ outline: "none" }}
-                _active={{ background: "none" }}
-                isActive={isOpen}
-                as={Button}
+    <Box>
+      <Box className="bg-gray-900" borderRadius="lg" overflow="hidden">
+            <Flex justify="space-between" align="center" p={4}>
+              <Flex align="center" gap={2}>
+                <Avatar src={`https://${item.creatorImage}`} size="sm" />
+                <Text fontSize="sm" color="gray.400">
+                  {item.creatorProfile}
+                </Text>
+              </Flex>
+              {userDetails?.walletAddress === item.creator ?  <Button colorScheme="red" bg="transparent" color={'#FF3B30'} _hover={{ bg: "transparent" }} onClick={() => handleDelete(Number(item.id))}>
+                <Trash2 />
+              </Button> :  <Button
+                variant="ghost"
+                size="sm"
+                color={'#edf2f7'}
+                bg={'transparent'}
+                _hover={{ bg: 'transparent' }}
               >
-                <Icon
-                  as={HiDotsHorizontal}
-                  color={"#fff"}
-                  fontSize={"1.3rem"}
-                />
-              </MenuButton>
-              <MenuList bg={"#13111a"} border={"none"}>
-                <MenuItem
-                  bg={"#13111a"}
-                  _hover={{ background: "none" }}
-                  _focus={{ background: "none", outline: "none" }}
-                  onClick={() => handleDelete(Number(item.id))}
+                Follow
+              </Button>}
+            </Flex>
+          {item.ipfsHash === 'aqua-abundant-catshark-806.mypinata.cloud/ipfs/' ? '' : <Image
+            src={`https://${item.ipfsHash}`}
+            alt="Content preview"
+            objectFit="cover"
+            h="200px"
+            w="100%"
+          />}
+          <VStack align="stretch" p={4} spacing={4}>
+            <Text fontSize="sm" color="gray.300">
+              {item.title}
+            </Text>
+            <Flex justify="space-between" align="center">
+              <Button
+                variant="ghost"
+                size="sm"
+                rightIcon={<ChevronRight size={16} />}
+                onClick={() => {
+                  onOpen();
+                  handleFullContent(item);
+                }}
+                bg={'#edf2f7'}
+              >
+                View
+              </Button>
+            </Flex>
+            <Flex justify="space-between" align="center">
+              <Flex gap={4} color={'#edf2f7'}>
+                <Flex
+                  align="center"
+                  gap={1}
+                  cursor="pointer"
+                  onClick={() => handleLike(Number(item.id))}
                 >
-                  Delete
-                </MenuItem>
-              </MenuList>
-            </>
-          )}
-        </Menu>
-      </Flex>
-      <Box
-        mb={"1rem"}
-        onClick={() => {
-          onOpen();
-          handleFullContent(item);
-        }}
-      >
-        <Text mb={".5rem"}>{item.title}</Text>
-        {(item.contentType === "image" && (
-          <Img
-            mb={"1rem"}
-            src={`https://${item.ipfsHash}`} // Assuming ipfsHash is the URL to the content image
-            alt="Content Image"
-            h={"200px"}
-            w={"100%"}
-            objectFit={"cover"}
-            cursor={"pointer"}
-            borderRadius={".5rem"}
-          />
-        )) ||
-          (item.contentType === "video" && (
-            <video src={`https://${item.ipfsHash}`} width="100%" height="100" />
-          )) ||
-          (item.contentType === "audio" && (
-            <audio src={`https://${item.ipfsHash}`} controls />
-          ))}
-      </Box>
-      <Flex justify={"space-between"}>
-        <Box>
-          <Flex gap={"1.5rem"} align={"center"}>
-            <Flex
-              gap={".2rem"}
-              onClick={() => {
-                handleLike(Number(item.id));
-              }}
-              cursor={"pointer"}
-              align={"center"}
-            >
-              <Icon as={FaThumbsUp} fontSize={"1rem"} />
-              <Text>{Number(item.likes)}</Text>
+                  <Icon as={FaThumbsUp} />
+                  <Text>{Number(item?.likes)}</Text>
+                </Flex>
+                <Flex
+                  align="center"
+                  gap={1}
+                  cursor="pointer"
+                  onClick={() => handleDisLike(Number(item.id))}
+                >
+                  <Icon as={FaThumbsDown} />
+                  <Text>{Number(item?.dislikes)}</Text>
+                </Flex>
+              </Flex>
+              <Text fontSize="sm" className="text-purple-600">
+                {timeAgo}
+              </Text>
             </Flex>
-            <Flex
-              gap={".2rem"}
-              onClick={() => {
-                handleDisLike(Number(item.id));
-              }}
-              cursor={"pointer"}
-              align={"center"}
-            >
-              <Icon as={FaThumbsDown} fontSize={"1rem"} />
-              <Text>{Number(item.dislikes)}</Text>
-            </Flex>
-            {/* <Flex gap={".2rem"} align={"center"}>
-              <Icon as={FiEye} fontSize={"1rem"} />
-              <Text>{Number(item.views)}</Text>
-            </Flex> */}
-          </Flex>
+          </VStack>
         </Box>
-        <Box
-          borderRadius={"50rem"}
-          px={"1rem"}
-          bgGradient="linear(to-r, #e94c91, #5555fb)"
-          border={"none"}
-          color={"#fff"}
-          transition={"all .5s ease-in-out"}
-          _focus={{ outline: "none" }}
-        >
-          {item.contentType}
-        </Box>
-      </Flex>
+
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-        <ModalContent mb={6} mt={20} bg={"#1d1a27"} className="font">
+        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" className="font-suse" />
+        <ModalContent bg="gray.900">
           <ModalBody>
-            <Text mb={".5rem"}>{id?.title}</Text>
-            {(item.contentType === "image" && (
-              <Img
-                mb={"1rem"}
-                src={`https://${id?.ipfsHash}`} // Assuming ipfsHash is the URL to the content image
-                alt="Content Image"
-                objectFit={"cover"}
-                cursor={"pointer"}
-                borderRadius={".5rem"}
-              />
-            )) ||
-              (item.contentType === "video" && (
-                <video width="750" height="500" controls>
+            <VStack align="stretch" spacing={4}>
+              <Text fontSize="sm" color="gray.300">
+                {id?.title}
+              </Text>
+              {item.contentType === "image" && (
+                <Image
+                  src={`https://${id?.ipfsHash}`}
+                  alt="Content Image"
+                  objectFit="cover"
+                  borderRadius="md"
+                />
+              )}
+              {item.contentType === "video" && (
+                <Box as="video" controls width="100%">
                   <source src={`https://${id?.ipfsHash}`} />
-                </video>
-              )) ||
-              (item.contentType === "audio" && (
-                <audio controls>
+                </Box>
+              )}
+              {item.contentType === "audio" && (
+                <Box as="audio" controls width="100%">
                   <source src={`https://${id?.ipfsHash}`} />
-                  Your browser does not support the audio element.
-                </audio>
-              ))}
+                </Box>
+              )}
+            </VStack>
           </ModalBody>
         </ModalContent>
       </Modal>
-    </GridItem>
+    </Box>
   );
 };
 

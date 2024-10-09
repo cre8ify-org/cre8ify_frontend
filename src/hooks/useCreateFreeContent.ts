@@ -45,8 +45,8 @@ const useCreateFreeContent = (
 
     try {
       const contentType = getContentType(fileExtension);
-      if (contentType === "unknown") {
-        console.error("Unknown file extension");
+      if (contentType === "unknown" && title === '') {
+        toast.error("Unknown file extension");
         return null;
       }
       const transaction = await contract.createFreeContent(
@@ -67,7 +67,7 @@ const useCreateFreeContent = (
 
       toast.success("Free Content Created!");
     } catch (error: unknown) {
-      // console.log(error);
+      console.log(error);
     }
   }, [
     chainId,

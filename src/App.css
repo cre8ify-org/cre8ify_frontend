@@ -1,6 +1,7 @@
 body {
-  background: #13111a !important;
+  background: #000 !important;
   overflow-x: hidden;
+  color: #edf2f7;
 }
 
 .pattern {

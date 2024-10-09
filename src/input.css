@@ -10,3 +10,7 @@
     border-radius: 0.5rem;
     color: #9333ea;
 }
+
+body {
+    color: #edf2f7 !important;
+}
