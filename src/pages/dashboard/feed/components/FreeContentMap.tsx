@@ -31,8 +31,7 @@ const FreeContentMap = () => {
     (fullContent as ContentItem[])[0]
   );
   const [contentId, setContentId] = useState(Number(""));
-  // console.log(contentId);
-  // console.log(contentItems);
+  console.log(contentId);
 
   const like = useLike();
   const disLike = useDisLike();

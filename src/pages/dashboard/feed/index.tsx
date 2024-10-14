@@ -1,102 +1,28 @@
-import CreateInput from "./components/CreateInput";
-import Head from "./components/Head";
 import DashboardLayout from "../../../layout/dashboardLayout";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import FreeContentMap from "./components/ContentMap";
-import AllUser from "./components/AllUser";
 import MyFreeContentMap from "./components/MyFreeContentMap";
+import { Search } from "lucide-react";
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { CreateContentModal } from "./components/CreateModal";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
 const Feed = () => {
-  const { address } = useWeb3ModalAccount();
+  const {address} = useWeb3ModalAccount()
   return (
     <DashboardLayout>
-      <Head />
-      <CreateInput />
-      <Tabs>
-        <TabList
-          color={"#e9ecef"}
-          borderBottom={"1px solid #323436"}
-          pb={".5rem"}
-          gap={"1rem"}
-        >
-          <Tab
-            _selected={{
-              bgGradient: "linear(to-r, #e94c91, #5555fb)",
-              bgClip: "text",
-            }}
-            _hover={{
-              bgGradient: "linear(to-r, #e94c91, #5555fb)",
-              bgClip: "text",
-            }}
-            border={"none"}
-            _focus={{ outline: "none" }}
-            borderRadius={"0"}
-          >
-            Free
-          </Tab>
-          <Tab
-            _selected={{
-              bgGradient: "linear(to-r, #e94c91, #5555fb)",
-              bgClip: "text",
-            }}
-            _hover={{
-              bgGradient: "linear(to-r, #e94c91, #5555fb)",
-              bgClip: "text",
-            }}
-            border={"none"}
-            _focus={{ outline: "none" }}
-            borderRadius={"0"}
-          >
-            Exclusive
-          </Tab>
-          <Tab
-            _selected={{
-              bgGradient: "linear(to-r, #e94c91, #5555fb)",
-              bgClip: "text",
-            }}
-            _hover={{
-              bgGradient: "linear(to-r, #e94c91, #5555fb)",
-              bgClip: "text",
-            }}
-            border={"none"}
-            _focus={{ outline: "none" }}
-            borderRadius={"0"}
-          >
-            Your Posts
-          </Tab>
-          <Tab
-            _selected={{
-              bgGradient: "linear(to-r, #e94c91, #5555fb)",
-              bgClip: "text",
-            }}
-            _hover={{
-              bgGradient: "linear(to-r, #e94c91, #5555fb)",
-              bgClip: "text",
-            }}
-            border={"none"}
-            _focus={{ outline: "none" }}
-            borderRadius={"0"}
-          >
-            Live
-          </Tab>
-        </TabList>
-
-        <TabPanels>
-          <TabPanel>
-            <FreeContentMap />
-          </TabPanel>
-          <TabPanel>
-            <AllUser />
-          </TabPanel>
-          <TabPanel>
-            <MyFreeContentMap userAddress={address} />
-          </TabPanel>
-          <TabPanel>
-            <p>Top Creators</p>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold font-lato">Discover Creative Content</h2>
+        <CreateContentModal />
+      </div>
+      <InputGroup>
+        <InputLeftElement pointerEvents='none'>
+          <Search color='gray.300' />
+        </InputLeftElement>
+        <Input type='tel' placeholder='Phone number' />
+      </InputGroup>
+            
+      <FreeContentMap />
+      <MyFreeContentMap userAddress={address} />
     </DashboardLayout>
   );
 };

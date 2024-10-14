@@ -3,23 +3,12 @@ import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverla
 // import { Avatar } from '@chakra-ui/react'
 // import { Bell, Menu } from 'lucide-react'
 import ConnectButton from "../../components/ConnectButton";
-import { useWeb3ModalAccount } from "@web3modal/ethers/react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { Footer } from "../../pages/landingPage/home/components/Footer";
 import { HiMenuAlt4 } from "react-icons/hi";
 
 export default function HomeLayout(props: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isConnected } = useWeb3ModalAccount();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Redirect to "/feed" if the wallet is connected
-    if (isConnected) {
-      navigate("/feed");
-    }
-  }, [isConnected]);
   
   return (
     <Box>

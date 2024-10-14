@@ -36,10 +36,7 @@ const useDelete = () => {
 
         toast.success("Deleted!");
       } catch (error: any) {
-        // console.log(error);
-        if ((error.message = "You are not the creator")) {
-          toast.error("You're not the creator");
-        }
+        console.log(error);
       }
     },
     [chainId, walletProvider]

@@ -86,12 +86,12 @@ export default function AboutPage() {
               <h2 className="text-3xl font-bold mb-12 text-center font-lato">Meet Our Visionaries</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
-                  { name: "Victorai Adedayo", role: "Co-Founder & Blockchain Developer", avatar: "/placeholder-user.jpg", bio: "Former Silicon Valley exec turned blockchain enthusiast. Elena's vision drives Cre8ify's mission to empower creators worldwide." },
+                  { name: "Victoria Adedayo", role: "Co-Founder & Blockchain Developer", avatar: "/placeholder-user.jpg", bio: "Former Silicon Valley exec turned blockchain enthusiast. Elena's vision drives Cre8ify's mission to empower creators worldwide." },
                   { name: "Adeoluwa Adefokun", role: "Co-Founder & Blockchain Developer", avatar: "/placeholder-user.jpg", bio: "Cryptography expert and full-stack developer. Jamal architects the robust, decentralized infrastructure that powers our platform." },
                   { name: "McDavid Ojukwu", role: "Co-Founder & Frontend Developer", avatar: "/placeholder-user.jpg", bio: "Social media maven and content creator. Aisha ensures our community thrives and creators' voices are heard." },
                   { name: "Nicholas Akura", role: "Co-Founder & Blockchain Developer", avatar: "/placeholder-user.jpg", bio: "Social media maven and content creator. Aisha ensures our community thrives and creators' voices are heard." },
                   { name: "Abigail Nyangasi", role: "Co-Founder & Frontend Developer", avatar: "/placeholder-user.jpg", bio: "Social media maven and content creator. Aisha ensures our community thrives and creators' voices are heard." },
-                  { name: "Mubarak Oke", role: "Co-Founder & Blockchain Developer", avatar: "/placeholder-user.jpg", bio: "Social media maven and content creator. Aisha ensures our community thrives and creators' voices are heard." },
+                  { name: "Mubarak Okeola", role: "Co-Founder & Blockchain Developer", avatar: "/placeholder-user.jpg", bio: "Social media maven and content creator. Aisha ensures our community thrives and creators' voices are heard." },
                 ].map((member, index) => (
                   <div key={index} className="text-center bg-gray-900 rounded-lg py-8 px-8">
                     <Avatar className="mb-4" size={'2xl'} />

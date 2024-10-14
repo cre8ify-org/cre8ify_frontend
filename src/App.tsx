@@ -12,10 +12,13 @@ import Treasury from "./pages/DAOdashboard/Treasury";
 import AboutUs from "./pages/landingPage/about-us";
 import FAQ from "./pages/landingPage/FAQ";
 import Support from "./pages/landingPage/support";
+import ProfilePage from "./pages/dashboard/profile";
+import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
 configureWeb3Modal();
 
 function App() {
+  const { address } = useWeb3ModalAccount();
   return (
     <>
       <Router>
@@ -24,7 +27,8 @@ function App() {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Support />} />
-          <Route path="/feed" element={<Feed />} />
+          <Route path="/explore" element={<Feed />} />
+          <Route path={`/${address}`} element={<ProfilePage />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/subscription" element={<Subscription />} />
           <Route path="/overview" element={<Overview />} />

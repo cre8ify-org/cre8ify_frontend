@@ -32,7 +32,7 @@ const ContentMap = () => {
   );
 
   const [contentId, setContentId] = useState(Number(""));
-  // console.log(contentId);
+  console.log(contentId);
 
   const like = useLike();
   const disLike = useDisLike();
@@ -66,7 +66,7 @@ const ContentMap = () => {
   };
 
   return (
-    <Grid templateColumns="repeat(1, 1fr)" gap={6}>
+    <Grid templateColumns={["repeat(1, 1fr)","repeat(1, 1fr)","repeat(2, 1fr)","repeat(2, 1fr)"]} gap={6}>
       {(contentItems as ContentItem[]).map((item, index) => (
         <Content
           handleFullContent={handleFullContent}
