@@ -1,13 +1,10 @@
 import DashboardLayout from "../../../layout/dashboardLayout";
 import FreeContentMap from "./components/ContentMap";
-import MyFreeContentMap from "./components/MyFreeContentMap";
 import { Search } from "lucide-react";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { CreateContentModal } from "./components/CreateModal";
-import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
 const Feed = () => {
-  const {address} = useWeb3ModalAccount()
   return (
     <DashboardLayout>
       <div className="flex justify-between items-center">
@@ -16,13 +13,12 @@ const Feed = () => {
       </div>
       <InputGroup>
         <InputLeftElement pointerEvents='none'>
-          <Search color='gray.300' />
+          <Search className="text-[#9ca3af]" />
         </InputLeftElement>
-        <Input type='tel' placeholder='Phone number' />
+        <Input type='tel' placeholder='Content, Creator' />
       </InputGroup>
             
       <FreeContentMap />
-      <MyFreeContentMap userAddress={address} />
     </DashboardLayout>
   );
 };

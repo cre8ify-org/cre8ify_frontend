@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay, Flex, Icon, useDisclosure } from '@chakra-ui/react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay, Flex, Icon, useDisclosure } from '@chakra-ui/react'
 // import { Avatar } from '@chakra-ui/react'
 // import { Bell, Menu } from 'lucide-react'
 import ConnectButton from "../../components/ConnectButton";
@@ -9,6 +9,7 @@ import { HiMenuAlt4 } from "react-icons/hi";
 
 export default function HomeLayout(props: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate()
   
   return (
     <Box>
@@ -54,7 +55,26 @@ export default function HomeLayout(props: any) {
             <NavLink to="/faq" className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">FAQ</NavLink>
           </nav>
           <Box display={["none", "none", "block"]}>
-            <ConnectButton />
+            <Button
+            bg={'#9333ea'}
+            borderRadius={"100rem"}
+            border={"none"}
+            p={'1rem 2rem'}
+            color={"#fff"}
+            transition={"all .5s ease-in-out"}
+            w={"150px"}
+            _hover={{
+              bg: "#7e22ce",
+              border: "none",
+            }}
+            _focus={{ outline: "none" }}
+            onClick={() => {
+              navigate('/explore')
+            }}
+            className="font-suse"
+            >
+              Launch App
+            </Button>
           </Box>
           <Box
             display={["block", "block", "none"]}

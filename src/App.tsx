@@ -14,13 +14,14 @@ import FAQ from "./pages/landingPage/FAQ";
 import Support from "./pages/landingPage/support";
 import ProfilePage from "./pages/dashboard/profile";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
+import ComingSoonPage from "./pages/comingSoon";
+import { RegisterCreator } from "./components/RegisterCreator";
 
 configureWeb3Modal();
 
 function App() {
   const { address } = useWeb3ModalAccount();
   return (
-    <>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -35,9 +36,9 @@ function App() {
           <Route path="/proposals" element={<Proposals />} />
           <Route path="/voting" element={<Voting />} />
           <Route path="/treasury" element={<Treasury />} />
+          <Route path="/coming-soon" element={<ComingSoonPage />} />
         </Routes>
       </Router>
-    </>
   );
 }
 

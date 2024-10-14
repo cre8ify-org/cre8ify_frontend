@@ -4,6 +4,7 @@ import "../../../../App.css";
 
 const Users = () => {
   const getRegUsers = useGetRegUsers();
+  console.log(getRegUsers)
   return (
     <Box
       w="500px"

@@ -5,8 +5,11 @@ import ConnectButton from '../../../components/ConnectButton'
 import ProfileDetails from '../../../components/ProfileDetails'
 import { useWeb3ModalAccount } from '@web3modal/ethers/react'
 import useGetUserDetails from "../../../hooks/useGetUserDetails"
+import useCheckRegUser from "../../../hooks/useCheckRegUser"
 
 export default function ProfilePage() {
+  const regUser = useCheckRegUser()
+  
   const {address} = useWeb3ModalAccount()  
   const {data: userDetails} = useGetUserDetails()
   return (
@@ -47,16 +50,16 @@ export default function ProfilePage() {
                 <span className="text-2xl font-suse font-bold text-white">Cre8ify</span>
               </Link>
             <nav className="hidden md:flex space-x-4">
-              <Link to={"/"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Explore</Link>
+              <Link to={"/explore"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Explore</Link>
               <Link to={"/"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Create</Link>
               <Link to={"/"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Learn</Link>
             </nav>
             <div className="flex items-center space-x-4">
                 <ConnectButton />
 
-                <Link to={`/${address}`}>
+                {regUser === false ? '' : <Link to={`/${address}`}>
                     <ProfileDetails />
-                </Link>
+                </Link>}
             </div>
           </div>
         </header>

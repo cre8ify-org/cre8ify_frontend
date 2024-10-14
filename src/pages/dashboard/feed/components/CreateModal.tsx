@@ -2,8 +2,6 @@ import useCreateFreeContent from "../../../../hooks/useCreateFreeContent";
 import { ChangeEvent, useState } from "react";
 import useGetUserDetails from "../../../../hooks/useGetUserDetails";
 import "../../../../App.css";
-// import useCreateExclContent from "../../../../hooks/useCreateExclContent";
-import useCheckRegUser from "../../../../hooks/useCheckRegUser";
 import {
   Modal,
   ModalOverlay,
@@ -15,10 +13,8 @@ import {
   Button,
   VStack,
   FormControl,
-//   FormLabel,
   Input,
   Textarea,
-//   Box,
   Text,
   useColorModeValue,
   Icon,
@@ -27,19 +23,16 @@ import {
   Box,
   useDisclosure,
 } from '@chakra-ui/react'
-// import { Upload } from 'lucide-react'
 import { FaImage, FaMusic } from "react-icons/fa";
 import { RiFileVideoFill } from "react-icons/ri";
 import { PlusCircle } from "lucide-react";
 
 export const CreateContentModal = () => {
+   
     const [title, setTitle] = useState<string>("");
     const [ipfsHash, setIpfsHash] = useState<string>("");
     const [contentType, setContentType] = useState("");
     const { data: userDetails } = useGetUserDetails();
-    // const [exclusive, setExclusive] = useState(false);
-    const regUser = useCheckRegUser();
-    console.log(regUser);
 
     const OverlayOne = () => (
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
@@ -53,7 +46,6 @@ export const CreateContentModal = () => {
 
   const handleCaption = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(e.target.value);
-    // console.log(title);
   };
 
   const changeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +90,6 @@ export const CreateContentModal = () => {
       setIpfsHash(resData.IpfsHash);
       console.log(resData.IpfsHash);
     } catch (e) {
-      // console.log(e);
       alert("Trouble uploading file");
     }
   };
@@ -118,6 +109,9 @@ export const CreateContentModal = () => {
             setOverlay(<OverlayOne />);
             onOpen();
         }}
+        color={'#edf2f7'}
+        bg={'#9333ea'}
+        _hover={{ bg: '#7e22ce' }}
         className="bg-purple-600 hover:bg-purple-700">
             <PlusCircle className="mr-2 h-4 w-4" /> Create
         </Button>

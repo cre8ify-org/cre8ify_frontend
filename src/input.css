@@ -14,3 +14,8 @@
 body {
     color: #edf2f7 !important;
 }
+
+
+w3m-modal {
+    z-index: 10000 !important;
+}
