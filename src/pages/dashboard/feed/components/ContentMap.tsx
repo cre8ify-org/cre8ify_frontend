@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Content from "./Content";
 import useFetchFreeContent from "../../../../hooks/useFetchFreeContent";
-import { Grid } from "@chakra-ui/react";
+import { Grid, Spinner } from "@chakra-ui/react";
 import useLike from "../../../../hooks/useLike";
 import useDisLike from "../../../../hooks/useDisLike";
 import useDelete from "../../../../hooks/useDelete";
@@ -32,13 +32,19 @@ const ContentMap = () => {
   );
 
   const [contentId, setContentId] = useState(Number(""));
-  console.log(contentId);
+  console.log(contentId)
 
   const like = useLike();
   const disLike = useDisLike();
   const deleteContent = useDelete();
 
-  if (loading) return <div>Loading...</div>;
+  const reversedContentItems = useMemo(() => {
+    return (contentItems as ContentItem[]).reverse();
+  }, [contentItems]);
+
+  console.log(reversedContentItems)
+
+  if (loading) return <div><Spinner /></div>;
   if (error) return <div>Error: {error}</div>;
 
   const handleFullContent = (e: any) => {
@@ -67,7 +73,9 @@ const ContentMap = () => {
 
   return (
     <Grid templateColumns={["repeat(1, 1fr)","repeat(1, 1fr)","repeat(2, 1fr)","repeat(2, 1fr)"]} gap={6}>
-      {(contentItems as ContentItem[]).map((item, index) => (
+      {(contentItems as ContentItem[])
+      .reverse()
+      .map((item, index) => (
         <Content
           handleFullContent={handleFullContent}
           id={id}

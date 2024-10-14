@@ -26,7 +26,7 @@ export default function ConnectButton() {
           onClick={() => open()}
           className="font-suse"
         >
-          Launch App
+          Connect Wallet
         </Button>
       )}
     </>

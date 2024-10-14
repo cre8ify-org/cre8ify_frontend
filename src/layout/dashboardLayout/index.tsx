@@ -1,17 +1,20 @@
-import { Avatar, Box, Button, Flex, Icon, Input, InputGroup, InputLeftElement, Text } from "@chakra-ui/react";
-import { menu } from "../../constants/data.ts";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
+import { Link, NavLink } from "react-router-dom";
 import "../../App.css";
 import ConnectButton from "../../components/ConnectButton.tsx";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import ProfileDetails from "../../components/ProfileDetails.tsx";
 import { TrendingUp, Users, Zap } from "lucide-react";
+import useCheckRegUser from "../../hooks/useCheckRegUser.ts";
+import { RegisterCreator } from "../../components/RegisterCreator.tsx";
+import { WalletCheck } from "../../components/WalletCheck.tsx";
 interface DashboardLayoutProps {
   children: React.ReactNode;
 }
 
 const DashboardLayout = (props: DashboardLayoutProps) => {
   const { address } = useWeb3ModalAccount();
+  const regUser = useCheckRegUser()
 
   return (
     <Box className="font-suse">
@@ -52,8 +55,8 @@ const DashboardLayout = (props: DashboardLayoutProps) => {
               </Link>
             <nav className="hidden md:flex space-x-4">
               <NavLink to={"/explore"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Explore</NavLink>
-              <NavLink to={"/"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Create</NavLink>
-              <NavLink to={"/"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Learn</NavLink>
+              {/* <NavLink to={"/coming-soon"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Swap</NavLink> */}
+              <NavLink to={"/coming-soon"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Learn</NavLink>
             </nav>
             <div className="flex items-center space-x-4">
               {/* <Button variant="ghost" size="icon" _hover={{ bg: 'transparent' }}>
@@ -61,15 +64,17 @@ const DashboardLayout = (props: DashboardLayoutProps) => {
               </Button> */}
               <ConnectButton />
 
-              <Link to={`/${address}`}>
+              {regUser === false ? <RegisterCreator /> : null}
+
+              {regUser === false || regUser === null ? null : <Link to={`/${address}`}>
                 <ProfileDetails />
-              </Link>
+              </Link>}
             </div>
           </div>
         </header>
       </div>
       {/* Main Content */}
-      <main className="flex-grow container mx-auto py-8 px-4 lg:px-12 pt-[7rem]">
+      <main className="flex-grow container mx-auto px-4 lg:px-12 pt-[7rem]">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Sidebar */}
           <aside className="w-full md:w-64 space-y-6 relative md:fixed lg:fixed">
@@ -89,18 +94,18 @@ const DashboardLayout = (props: DashboardLayoutProps) => {
               </div>
             </div>
             <nav className="space-y-2">
-              <a href="#" className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
+              <Link to="/coming-soon" className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
                 <TrendingUp className="h-5 w-5" />
                 <span>Trending</span>
-              </a>
-              <a href="#" className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
+              </Link>
+              <Link to="/coming-soon" className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
                 <Users className="h-5 w-5" />
                 <span>Communities</span>
-              </a>
-              <a href="#" className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
+              </Link>
+              <Link to="/coming-soon" className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
                 <Zap className="h-5 w-5" />
                 <span>Challenges</span>
-              </a>
+              </Link>
             </nav>
           </aside>
 
@@ -110,6 +115,7 @@ const DashboardLayout = (props: DashboardLayoutProps) => {
           </div>
         </div>
       </main>
+      <WalletCheck />
     </Box>
   );
 };

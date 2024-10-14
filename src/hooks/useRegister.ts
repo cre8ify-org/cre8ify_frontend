@@ -22,7 +22,7 @@ const useRegister = (name: string, image: string) => {
     const contract = getAuthContract(signer);
 
     try {
-      if (name === "" || !image) {
+      if (name === "" || image === '') {
         toast.error("Please fill in details");
       } else {
         const transaction = await contract.registerUser(name, image);

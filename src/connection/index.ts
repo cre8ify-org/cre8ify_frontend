@@ -32,7 +32,7 @@ export const Base_SEPOLIA_ID = 84532;
 
 const Base_sepolia = {
   chainId: Base_SEPOLIA_ID,
-  name: "Base Sepolia Testnet",
+  name: "Base Sepolia Testnet", 
   currency: "ETH",
   explorerUrl: "https://sepolia.basescan.org/",
   rpcUrl: import.meta.env.VITE_sepolia_rpc_url,

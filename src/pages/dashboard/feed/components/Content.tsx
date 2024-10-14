@@ -9,23 +9,16 @@ import {
   ModalBody,
   useDisclosure,
   Icon,
-  // Menu,
-  // MenuButton,
-  // MenuList,
-  // MenuItem,
   Button,
-  // Grid,
-  // InputGroup,
-  // InputLeftElement,
-  // Input,
   Avatar,
-  // Heading,
   VStack,
+  HStack,
+  Tooltip,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { SetStateAction, useEffect, useState } from "react";
-import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
-// import { HiDotsHorizontal, HiSearch } from "react-icons/hi";
-import { ChevronRight, Trash2 } from "lucide-react";
+import { FaThumbsUp, FaThumbsDown, FaEye, FaUserPlus } from "react-icons/fa";
+import { Trash2 } from "lucide-react";
 import useGetUserDetails from "../../../../hooks/useGetUserDetails";
 
 const Content = ({
@@ -41,7 +34,10 @@ const Content = ({
   const [timeAgo, setTimeAgo] = useState<SetStateAction<any>>(null);
   const { data: userDetails } = useGetUserDetails();
 
-  // console.log(item)
+  const bgColor = useColorModeValue("#111827", "#111827");
+  const textColor = useColorModeValue("gray.100", "gray.200");
+  const buttonBg = useColorModeValue("#9333ea", "#9333ea");
+  const buttonColor = useColorModeValue("#edf2f7", "#edf2f7");
 
   useEffect(() => {
     const currentTime = Math.floor(Date.now() / 1000);
@@ -84,85 +80,141 @@ const Content = ({
 
   return (
     <Box>
-      <Box className="bg-gray-900" borderRadius="lg" overflow="hidden">
-            <Flex justify="space-between" align="center" p={4}>
-              <Flex align="center" gap={2}>
-                <Avatar src={`https://${item.creatorImage}`} size="sm" />
-                <Text fontSize="sm" color="gray.400">
-                  {item.creatorProfile}
-                </Text>
-              </Flex>
-              {userDetails?.walletAddress === item.creator ?  <Button colorScheme="red" bg="transparent" color={'#FF3B30'} _hover={{ bg: "transparent" }} onClick={() => handleDelete(Number(item.id))}>
-                <Trash2 />
-              </Button> :  <Button
-                variant="ghost"
+      <Box bg={bgColor} borderRadius="lg" overflow="hidden" boxShadow="md">
+        <Flex justify="space-between" align="center" p={4}>
+          <Flex align="center" gap={2}>
+            <Avatar src={`https://${item.creatorImage}`} size="sm" />
+            <VStack align="start" spacing={0}>
+              <Text fontSize="sm" fontWeight="bold" color={textColor}>
+                {item.creatorProfile}
+              </Text>
+              <Text fontSize="xs" color="gray.500">
+                {timeAgo}
+              </Text>
+            </VStack>
+          </Flex>
+          {userDetails?.walletAddress === item.creator ? (
+            <Tooltip placement="top">
+              <Button
+                bg={'blackAlpha.500'}
                 size="sm"
-                color={'#edf2f7'}
-                bg={'transparent'}
-                _hover={{ bg: 'transparent' }}
+                colorScheme="red"
+                variant="ghost"
+                onClick={() => handleDelete(Number(item.id))}
+              >
+                <Icon as={Trash2} />
+              </Button>
+            </Tooltip>
+          ) : (
+            <Tooltip placement="top">
+              <Button
+                outline={'1px solid #9333ea'}
+                color={'#9333ea'}
+                size="sm"
+                leftIcon={<FaUserPlus />}
+                variant="outline"
+                border={'none'}
+                _hover={{ bg: '#9333ea', color: '#edf2f7' }}
               >
                 Follow
-              </Button>}
-            </Flex>
-          {item.ipfsHash === 'aqua-abundant-catshark-806.mypinata.cloud/ipfs/' ? '' : <Image
+              </Button>
+            </Tooltip>
+          )}
+        </Flex>
+        {item.ipfsHash !== 'aqua-abundant-catshark-806.mypinata.cloud/ipfs/' && (
+          <Image
             src={`https://${item.ipfsHash}`}
             alt="Content preview"
             objectFit="cover"
             h="200px"
             w="100%"
-          />}
-          <VStack align="stretch" p={4} spacing={4}>
-            <Text fontSize="sm" color="gray.300">
-              {item.title}
-            </Text>
-            <Flex justify="space-between" align="center">
+          />
+        )}
+        <VStack align="stretch" p={4} spacing={4}>
+          <Text noOfLines={2}>{item.title}</Text>
+          <HStack justify="space-between" align="center">
+            <HStack spacing={4}>
+              <Tooltip placement="top">
+                <Button
+                  bg={'#edf2f7'}
+                  size="sm"
+                  variant="ghost"
+                  leftIcon={<FaThumbsUp />}
+                  onClick={() => handleLike(Number(item.id))}
+                >
+                  {Number(item?.likes)}
+                </Button>
+              </Tooltip>
+              <Tooltip placement="top">
+                <Button
+                  bg={'#edf2f7'}
+                  size="sm"
+                  variant="ghost"
+                  leftIcon={<FaThumbsDown />}
+                  onClick={() => handleDisLike(Number(item.id))}
+                >
+                  {Number(item?.dislikes)}
+                </Button>
+              </Tooltip>
+            </HStack>
+            <Tooltip placement="top">
               <Button
-                variant="ghost"
                 size="sm"
-                rightIcon={<ChevronRight size={16} />}
+                rightIcon={<FaEye />}
                 onClick={() => {
                   onOpen();
                   handleFullContent(item);
                 }}
-                bg={'#edf2f7'}
+                bg={buttonBg}
+                color={buttonColor}
+                _hover={{ bg: useColorModeValue('#7e22ce', '#7e22ce') }}
               >
                 View
               </Button>
-            </Flex>
-            <Flex justify="space-between" align="center">
-              <Flex gap={4} color={'#edf2f7'}>
-                <Flex
-                  align="center"
-                  gap={1}
-                  cursor="pointer"
-                  onClick={() => handleLike(Number(item.id))}
-                >
-                  <Icon as={FaThumbsUp} />
-                  <Text>{Number(item?.likes)}</Text>
-                </Flex>
-                <Flex
-                  align="center"
-                  gap={1}
-                  cursor="pointer"
-                  onClick={() => handleDisLike(Number(item.id))}
-                >
-                  <Icon as={FaThumbsDown} />
-                  <Text>{Number(item?.dislikes)}</Text>
-                </Flex>
-              </Flex>
-              <Text fontSize="sm" className="text-purple-600">
-                {timeAgo}
-              </Text>
-            </Flex>
-          </VStack>
-        </Box>
+            </Tooltip>
+          </HStack>
+        </VStack>
+      </Box>
 
-      <Modal isCentered isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" className="font-suse" />
-        <ModalContent bg="gray.900">
-          <ModalBody>
-            <VStack align="stretch" spacing={4}>
-              <Text fontSize="sm" color="gray.300">
+      <Modal isCentered isOpen={isOpen} onClose={onClose} size="xl">
+        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+        <ModalContent bg={bgColor}>
+          <ModalBody p={6}>
+            <VStack align="stretch" spacing={6}>
+              <Flex justify="space-between" align="center">
+                <Flex align="center" gap={2}>
+                  <Avatar src={`https://${item.creatorImage}`} size="sm" />
+                  <VStack align="start" spacing={0}>
+                    <Text fontSize="sm" fontWeight="bold" color={textColor}>
+                      {item.creatorProfile}
+                    </Text>
+                    <Text fontSize="xs" color="gray.500">
+                      {timeAgo}
+                    </Text>
+                  </VStack>
+                </Flex>
+                <HStack>
+                  <Button
+                    bg={'#edf2f7'}
+                    size="sm"
+                    variant="ghost"
+                    leftIcon={<FaThumbsUp />}
+                    onClick={() => handleLike(Number(item.id))}
+                  >
+                    {Number(item?.likes)}
+                  </Button>
+                  <Button
+                    bg={'#edf2f7'}
+                    size="sm"
+                    variant="ghost"
+                    leftIcon={<FaThumbsDown />}
+                    onClick={() => handleDisLike(Number(item.id))}
+                  >
+                    {Number(item?.dislikes)}
+                  </Button>
+                </HStack>
+              </Flex>
+              <Text fontSize="lg" fontWeight="semibold" color={textColor}>
                 {id?.title}
               </Text>
               {item.contentType === "image" && (

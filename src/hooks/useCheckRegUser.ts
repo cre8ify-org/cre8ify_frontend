@@ -2,36 +2,32 @@ import { useEffect } from "react";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import { getAuthContract } from "../constants/contract";
 import { readOnlyProvider } from "../constants/provider";
+import { store } from "../store";
 
-// interface UserDetails {
-//   username: string;
-//   walletAddress: string;
-//   profileImage: string;
-// }
-
-// interface State {
-//   loading: boolean;
-//   data?: UserDetails;
-//   error?: string;
-// }
-
-const useCheckRegUser = () => {
+const useCheckRegUser = (): boolean | null => {
   const { address } = useWeb3ModalAccount();
 
-  return useEffect(() => {
+  const {isRegistered, updateIsRegistered} = store();
+
+  useEffect(() => {
     const fetchUserDetails = async () => {
       try {
         const contract = getAuthContract(readOnlyProvider);
         const response = await contract.checkRegisteredUsers(address);
-
-        // console.log(response);
+        updateIsRegistered(response);
       } catch (err: any) {
-        // console.log(err.message);
+        console.log(err.message);
+        
+        updateIsRegistered(false);
       }
     };
 
-    fetchUserDetails();
+    if (address) {
+      fetchUserDetails();
+    }
   }, [address]);
+
+  return isRegistered;
 };
 
 export default useCheckRegUser;

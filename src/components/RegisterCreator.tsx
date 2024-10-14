@@ -1,65 +1,70 @@
+import { ChangeEvent, useEffect, useState } from 'react'
 import {
   Button,
   Flex,
-  Icon,
   Text,
+  Modal,
+  ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
   FormLabel,
   Input,
   FormControl,
-  Img,
-  Modal,
-  useDisclosure,
+  Image,
   Box,
-  ModalOverlay,
-} from "@chakra-ui/react";
-import { ChangeEvent, useState } from "react";
-import { FaImage } from "react-icons/fa6";
-import { useWeb3ModalAccount } from "@web3modal/ethers/react";
-import useRegister from "../hooks/useRegister";
+  useDisclosure,
+  VStack,
+  useColorModeValue,
+  Icon,
+} from "@chakra-ui/react"
+import { FaImage } from "react-icons/fa"
+import { useWeb3ModalAccount } from "@web3modal/ethers/react"
+import useRegister from "../hooks/useRegister"
+import useCheckRegUser from '../hooks/useCheckRegUser'
 
 export const RegisterCreator = () => {
-  const OverlayOne = () => (
-    <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-  );
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [username, setUsername] = useState<string>("")
+  const [cid, setCid] = useState<string>("")
+  const regUser = useCheckRegUser()
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [overlay, setOverlay] = useState(<OverlayOne />);
+  useEffect(() => {
+    if (regUser === false) {
+      onOpen()
+    } else {
+      onClose()
+    }
+  }, [regUser, onOpen, onClose])
 
-  const [username, setUsername] = useState<string>("");
-  const [cid, setCid] = useState<string>("");
-
-  const { address } = useWeb3ModalAccount();
+  const { address } = useWeb3ModalAccount()
 
   const handleRegister = useRegister(
     username,
     `${import.meta.env.VITE_GATEWAY_URL}/ipfs/${cid}`
-  );
+  )
 
   const changeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const selectedFile = e.target.files[0];
-      await handleSubmission(selectedFile);
+      const selectedFile = e.target.files[0]
+      await handleSubmission(selectedFile)
     }
-  };
+  }
 
   const handleSubmission = async (fileToUpload: string | Blob) => {
     try {
-      const formData = new FormData();
-      formData.append("file", fileToUpload);
+      const formData = new FormData()
+      formData.append("file", fileToUpload)
       const metadata = JSON.stringify({
         name: "File name",
-      });
-      formData.append("pinataMetadata", metadata);
+      })
+      formData.append("pinataMetadata", metadata)
 
       const options = JSON.stringify({
         cidVersion: 0,
-      });
-      formData.append("pinataOptions", options);
+      })
+      formData.append("pinataOptions", options)
 
       const res = await fetch(
         "https://api.pinata.cloud/pinning/pinFileToIPFS",
@@ -70,142 +75,113 @@ export const RegisterCreator = () => {
           },
           body: formData,
         }
-      );
+      )
 
-      const resData = await res.json();
+      const resData = await res.json()
 
-      setCid(resData.IpfsHash);
-      console.log(resData.IpfsHash);
+      setCid(resData.IpfsHash)
+      console.log(resData.IpfsHash)
     } catch (e) {
-      console.log(e);
-      alert("Trouble uploading file");
+      console.log(e)
+      alert("Trouble uploading file")
     }
-  };
+  }
+
+  const bgGradient = useColorModeValue('linear(to-br, #230735, black)', 'linear(to-br, #230735, black)')
+  const buttonColor = useColorModeValue('white', 'gray.800')
+  const inputBg = useColorModeValue('transparent  ', 'transparent')
+
   return (
     <Box>
-      <Button
-        bgGradient="linear(to-r, #e94c91, #5555fb)"
-        borderRadius={"100rem"}
-        border={"none"}
-        color={"#fff"}
-        transition={"all .5s ease-in-out"}
-        w={"150px"}
-        _hover={{
-          bgGradient: "linear(to-r, #e94c91, #5555fb)",
-          border: "none",
-        }}
-        _focus={{ outline: "none" }}
-        onClick={() => {
-          setOverlay(<OverlayOne />);
-          onOpen();
-        }}
-      >
-        <Text>Register</Text>
-      </Button>
-      <Modal isCentered isOpen={isOpen} onClose={onClose}>
-        {overlay}
-        <ModalContent bg={"#1d1a27"} className="font">
-          <ModalHeader>Create your account</ModalHeader>
-          <ModalCloseButton
-            _focus={{ outline: "none" }}
-            _hover={{ border: "1px solid #15AB99" }}
-          />
-          <ModalBody pb={6}>
-            <FormControl>
-              <Input
-                type="file"
-                border={"none"}
-                id="selectFile"
-                onChange={changeHandler}
-                accept="image/png, image/jpeg, image/JPG, image/avif, img/svg"
-                hidden
-              />
-              <Flex align={"end"} justify={"space-between"} mb={"1rem"}>
-                <FormLabel htmlFor="selectFile">
+      {isOpen && (
+        <Box
+          position="fixed"
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          bg="rgba(0, 0, 0, 0.5)"
+          backdropFilter="blur(10px)"
+          zIndex="overlay"
+        />
+      )}
+      <Modal 
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        closeOnOverlayClick={false}
+        motionPreset="slideInBottom">
+        <ModalOverlay />
+        <ModalContent bgGradient={bgGradient} className='font-suse'>
+          <ModalHeader className='font-lato'>Create your account</ModalHeader>
+          <ModalBody>
+            <VStack spacing={4}>
+              <FormControl>
+                <Input
+                  type="file"
+                  id="selectFile"
+                  onChange={changeHandler}
+                  accept="image/png, image/jpeg, image/JPG, image/avif, img/svg"
+                  hidden
+                />
+                <FormLabel htmlFor="selectFile" w={'200px'} cursor="pointer">
                   <Flex
-                    borderRadius={".5rem"}
-                    align={"center"}
-                    justify={"center"}
-                    color={"#B7B7B6"}
-                    w={"200px"}
-                    h={"150px"}
-                    bg={"#13111a"}
+                    borderRadius="md"
+                    align="center"
+                    justify="center"
+                    bg={inputBg}
+                    w="200px"
+                    h="200px"
+                    border="2px dashed"
+                    borderColor="gray.300"
                   >
                     {cid ? (
-                      <Img
-                        src={`https://${
-                          import.meta.env.VITE_GATEWAY_URL
-                        }/ipfs/${cid}`}
-                        alt="image"
-                        w={"200px"}
-                        h={"150px"}
-                        objectFit={"cover"}
-                        borderRadius={".5rem"}
+                      <Image
+                        src={`https://${import.meta.env.VITE_GATEWAY_URL}/ipfs/${cid}`}
+                        alt="Profile"
+                        objectFit="cover"
+                        w="full"
+                        h="full"
+                        borderRadius="md"
                       />
                     ) : (
-                      <Flex flexDirection={"column"} align={"center"}>
-                        <Icon as={FaImage} fontSize={"3rem"} />
-                        <Text fontSize={"1rem"}>Upload Profile Image</Text>
-                      </Flex>
+                      <VStack>
+                        <Icon as={FaImage} fontSize="3xl" />
+                        <Text>Upload Profile Image</Text>
+                      </VStack>
                     )}
                   </Flex>
                 </FormLabel>
-              </Flex>
-            </FormControl>
-            <FormControl isRequired={true}>
-              <FormLabel>Username</FormLabel>
-              <Input
-                required
-                placeholder="Username"
-                value={username}
-                _placeholder={{ color: "#767677" }}
-                size="md"
-                border={"1px solid #535354"}
-                outline={"none"}
-                _hover={{ outline: "none" }}
-                _focus={{ boxShadow: "none" }}
-                px={".5rem"}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </FormControl>
-
-            <FormControl mt={4}>
-              <FormLabel>Address</FormLabel>
-              <Input
-                size="md"
-                border={"1px solid #535354"}
-                outline={"none"}
-                _hover={{ outline: "none" }}
-                _focus={{ boxShadow: "none" }}
-                px={".5rem"}
-                value={address}
-                disabled
-              />
-            </FormControl>
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel>Username</FormLabel>
+                <Input
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  bg={inputBg}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Address</FormLabel>
+                <Input value={address || ''} isReadOnly bg={inputBg} />
+              </FormControl>
+            </VStack>
           </ModalBody>
-
           <ModalFooter>
             <Button
-              bgGradient="linear(to-r, #e94c91, #5555fb)"
-              borderRadius={"100rem"}
-              border={"none"}
-              color={"#fff"}
-              transition={"all .5s ease-in-out"}
-              w={"150px"}
-              _hover={{
-                bgGradient: "linear(to-r, #e94c91, #5555fb)",
-                border: "none",
-              }}
-              _focus={{ outline: "none" }}
+              bg={'#9333ea'}
+              _hover={{ bg: "#7e22ce" }}
+              color={'#edf2f7'}
               onClick={() => {
-                handleRegister();
+                handleRegister()
               }}
             >
-              <Text>Register</Text>
+              Register
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
     </Box>
-  );
-};
+  )
+}
