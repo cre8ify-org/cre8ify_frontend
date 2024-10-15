@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import { getAuthContract } from "../constants/contract";
 import { readOnlyProvider } from "../constants/provider";
 
@@ -15,13 +14,12 @@ interface State {
   error?: string;
 }
 
-const useGetUserDetails = (): State => {
+const useGetUserDetails = (address: string | undefined): State => {
   const [userDetails, setUserDetails] = useState<State>({
     loading: true,
     data: undefined,
     error: undefined,
   });
-  const { address } = useWeb3ModalAccount();
 
   useEffect(() => {
     const fetchUserDetails = async () => {

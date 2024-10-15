@@ -5,9 +5,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import useGetUserDetails from "../hooks/useGetUserDetails";
+import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
 const ProfileDetails = () => {
-  const { data: userDetails, loading, error } = useGetUserDetails();
+  const { address } = useWeb3ModalAccount();
+  const { data: userDetails, loading, error } = useGetUserDetails(address);
   return (
     <Box className="font-suse">
       <Box>

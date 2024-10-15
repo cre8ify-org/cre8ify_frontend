@@ -1,17 +1,26 @@
 import { Avatar, Button, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react"
 import { Zap, ChevronRight, Edit } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import ConnectButton from '../../../components/ConnectButton'
 import ProfileDetails from '../../../components/ProfileDetails'
-import { useWeb3ModalAccount } from '@web3modal/ethers/react'
 import useGetUserDetails from "../../../hooks/useGetUserDetails"
 import useCheckRegUser from "../../../hooks/useCheckRegUser"
+import { ComingSoonModal } from '../../../components/ComingSoonModal'
+import { useState } from "react"
+import { RegisterCreator } from "../../../components/RegisterCreator"
+import { WalletCheck } from "../../../components/WalletCheck"
 
-export default function ProfilePage() {
+const ProfilePage: React.FC = () => {
   const regUser = useCheckRegUser()
+  const { address } = useParams<{ address: string }>();
+  const [isModalOpen, setIsModalOpen] = useState(false)
   
-  const {address} = useWeb3ModalAccount()  
-  const {data: userDetails} = useGetUserDetails()
+  const {data: userDetails} = useGetUserDetails(address)
+
+  const shortenAddress = (chars = 4) => {
+    return `${userDetails?.walletAddress.substring(0, chars + 2)}...${userDetails?.walletAddress.substring(userDetails?.walletAddress.length - chars)}`
+  }
+  
   return (
     <div className="min-h-screen bg-black text-white flex flex-col font-suse">
       {/* Header (same as HomePage) */}
@@ -51,15 +60,17 @@ export default function ProfilePage() {
               </Link>
             <nav className="hidden md:flex space-x-4">
               <Link to={"/explore"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Explore</Link>
-              <Link to={"/"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Create</Link>
+              {/* <Link to={"/"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Create</Link> */}
               <Link to={"/"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Learn</Link>
             </nav>
             <div className="flex items-center space-x-4">
-                <ConnectButton />
+              <ConnectButton />
 
-                {regUser === false ? '' : <Link to={`/${address}`}>
-                    <ProfileDetails />
-                </Link>}
+              {regUser === false ? <RegisterCreator /> : null}
+
+              {regUser === false || regUser === null ? null : <Link to={`/profile/${address}`}>
+                <ProfileDetails />
+              </Link>}
             </div>
           </div>
         </header>
@@ -72,9 +83,9 @@ export default function ProfilePage() {
           <aside className="w-full md:w-1/3 space-y-6">
             <div className="bg-gray-900 rounded-lg p-6 text-center">
               <Avatar name={userDetails?.username} src={`https://${userDetails?.profileImage}`} className="w-32 h-32 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold mb-2 font-lato">{userDetails?.username}</h2>
+              <h2 className="text-2xl font-bold mb-2 font-lato">{shortenAddress()}</h2>
               <p className="text-gray-400 mb-4 lowercase">{`@${userDetails?.username}`}</p>
-              <Button className="w-full mb-4">
+              <Button onClick={() => setIsModalOpen(true)} className="w-full mb-4">
                 <Edit className="mr-2 h-4 w-4" /> Edit Profile
               </Button>
               <div className="flex justify-around text-sm">
@@ -172,6 +183,10 @@ export default function ProfilePage() {
           </div>
         </div>
       </main>
+      <ComingSoonModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} featureName={''} />
+      <WalletCheck />
     </div>
   )
 }
+
+export default ProfilePage;
