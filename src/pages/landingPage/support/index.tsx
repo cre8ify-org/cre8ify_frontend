@@ -163,7 +163,7 @@ export default function ContactPage() {
           </section>
         </main>
       </div>
-      <ComingSoonModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ComingSoonModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} featureName={''} />
     </HomeLayout>  
   )
 }

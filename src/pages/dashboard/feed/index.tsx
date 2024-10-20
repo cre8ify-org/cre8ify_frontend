@@ -1,5 +1,5 @@
 import DashboardLayout from "../../../layout/dashboardLayout";
-import FreeContentMap from "./components/ContentMap";
+import ContentMap from "./components/ContentMap";
 import { Search } from "lucide-react";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { CreateContentModal } from "./components/CreateModal";
@@ -18,7 +18,7 @@ const Feed = () => {
         <Input type='tel' placeholder='Content, Creator' />
       </InputGroup>
             
-      <FreeContentMap />
+      <ContentMap />
     </DashboardLayout>
   );
 };

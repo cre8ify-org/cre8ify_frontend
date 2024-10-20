@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Content from "./Content";
+import MasonryGrid from "./MasonryGrid";
 import useFetchFreeContent from "../../../../hooks/useFetchFreeContent";
-import { Grid, Spinner } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import useLike from "../../../../hooks/useLike";
 import useDisLike from "../../../../hooks/useDisLike";
 import useDelete from "../../../../hooks/useDelete";
@@ -24,69 +25,60 @@ interface ContentItem {
   creatorImage: string;
 }
 
-const ContentMap = () => {
+const ContentMap: React.FC = () => {
   const { data: contentItems = [], loading, error } = useFetchFreeContent();
-  const [fullContent, setFullContent] = useState(contentItems);
-  const [id, setId] = useState<ContentItem | undefined>(
-    (fullContent as ContentItem[])[0]
-  );
+  const [fullContent, setFullContent] = useState<ContentItem[]>(contentItems as ContentItem[]);
+  const [id, setId] = useState<ContentItem | undefined>(fullContent[0]);
 
-  const [contentId, setContentId] = useState(Number(""));
-  console.log(contentId)
+  const [contentId, setContentId] = useState<number | null>(null);
+  contentId;
 
   const like = useLike();
   const disLike = useDisLike();
   const deleteContent = useDelete();
 
   const reversedContentItems = useMemo(() => {
-    return (contentItems as ContentItem[]).reverse();
+    return [...(contentItems as ContentItem[])].reverse();
   }, [contentItems]);
 
-  console.log(reversedContentItems)
+  if (loading) return <Box display="flex" justifyContent="center" alignItems="center" height="100vh"><Spinner /></Box>;
+  if (error) return <Box textAlign="center" color="red.500">Error: {error}</Box>;
 
-  if (loading) return <div><Spinner /></div>;
-  if (error) return <div>Error: {error}</div>;
-
-  const handleFullContent = (e: any) => {
+  const handleFullContent = (e: ContentItem) => {
     setId(e);
-
-    setFullContent((prev) => prev);
+    setFullContent((prev) => [...prev]);
   };
 
-  const handleLike = (e: any) => {
+  const handleLike = (e: number) => {
     setContentId(e);
-
     like(e);
   };
 
-  const handleDisLike = (e: any) => {
+  const handleDisLike = (e: number) => {
     setContentId(e);
-
     disLike(e);
   };
 
-  const handleDelete = (e: any) => {
+  const handleDelete = (e: number) => {
     setContentId(e);
-
     deleteContent(e);
   };
 
   return (
-    <Grid templateColumns={["repeat(1, 1fr)","repeat(1, 1fr)","repeat(2, 1fr)","repeat(2, 1fr)"]} gap={6}>
-      {(contentItems as ContentItem[])
-      .reverse()
-      .map((item, index) => (
-        <Content
-          handleFullContent={handleFullContent}
-          id={id}
-          key={index}
-          item={item}
-          handleLike={handleLike}
-          handleDisLike={handleDisLike}
-          handleDelete={handleDelete}
-        />
+    <MasonryGrid columnCount={{ base: 1, md: 2, lg: 2 }}>
+      {reversedContentItems.map((item, index) => (
+        <Box key={index} mb={6}>
+          <Content
+            handleFullContent={handleFullContent}
+            id={id}
+            item={item}
+            handleLike={handleLike}
+            handleDisLike={handleDisLike}
+            handleDelete={handleDelete}
+          />
+        </Box>
       ))}
-    </Grid>
+    </MasonryGrid>
   );
 };
 

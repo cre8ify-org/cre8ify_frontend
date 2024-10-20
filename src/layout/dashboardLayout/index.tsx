@@ -66,7 +66,7 @@ const DashboardLayout = (props: DashboardLayoutProps) => {
 
               {regUser === false ? <RegisterCreator /> : null}
 
-              {regUser === false || regUser === null ? null : <Link to={`/${address}`}>
+              {regUser === false || regUser === null ? null : <Link to={`/profile/${address}`}>
                 <ProfileDetails />
               </Link>}
             </div>

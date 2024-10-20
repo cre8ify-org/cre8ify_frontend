@@ -26,13 +26,14 @@ import {
 import { FaImage, FaMusic } from "react-icons/fa";
 import { RiFileVideoFill } from "react-icons/ri";
 import { PlusCircle } from "lucide-react";
+import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
 export const CreateContentModal = () => {
-   
+    const { address } = useWeb3ModalAccount();
     const [title, setTitle] = useState<string>("");
     const [ipfsHash, setIpfsHash] = useState<string>("");
     const [contentType, setContentType] = useState("");
-    const { data: userDetails } = useGetUserDetails();
+    const { data: userDetails } = useGetUserDetails(address);
 
     const OverlayOne = () => (
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
@@ -41,7 +42,7 @@ export const CreateContentModal = () => {
       const { isOpen, onOpen, onClose } = useDisclosure();
       const [overlay, setOverlay] = useState(<OverlayOne />);
 
-  const bgColor = useColorModeValue('#111827', 'gray.800')
+  const bgGradient = useColorModeValue('linear(to-br, #230735, black)', 'linear(to-br, #230735, black)')
   const borderColor = useColorModeValue('gray.700', 'gray.600')
 
   const handleCaption = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -117,7 +118,7 @@ export const CreateContentModal = () => {
         </Button>
         <Modal isOpen={isOpen} onClose={onClose} size="xl">
             {overlay}
-            <ModalContent bg={bgColor} color="white" className="font-suse" mx={'0.5rem'}>
+            <ModalContent bgGradient={bgGradient} color="white" className="font-suse" mx={'0.5rem'}>
                 <ModalHeader borderBottom="1px" borderColor={borderColor} className="font-lato">Create New Content</ModalHeader>
                 <ModalCloseButton />
                 <form>

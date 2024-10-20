@@ -88,7 +88,6 @@ export const RegisterCreator = () => {
   }
 
   const bgGradient = useColorModeValue('linear(to-br, #230735, black)', 'linear(to-br, #230735, black)')
-  const buttonColor = useColorModeValue('white', 'gray.800')
   const inputBg = useColorModeValue('transparent  ', 'transparent')
 
   return (
