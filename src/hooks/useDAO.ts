@@ -28,6 +28,7 @@ const useContentDAO = () => {
         // console.log("transaction: ", transaction);
 
         const receipt = await transaction.wait();
+        receipt;
         // console.log("receipt: ", receipt);
       } catch (error: unknown) {
         // console.log(error);
@@ -50,6 +51,7 @@ const useContentDAO = () => {
       //  console.log("transaction: ", transaction);
 
       const receipt = await transaction.wait();
+      receipt;
       //  console.log("receipt: ", receipt);
     } catch (error: unknown) {
       //  console.log(error);
@@ -75,6 +77,7 @@ const useContentDAO = () => {
         // console.log("transaction: ", transaction);
 
         const receipt = await transaction.wait();
+        receipt;
         // console.log("receipt: ", receipt);
       } catch (error: unknown) {
         // console.log(error);
@@ -98,6 +101,7 @@ const useContentDAO = () => {
         //  console.log("transaction: ", transaction);
 
         const receipt = await transaction.wait();
+        receipt;
         //  console.log("receipt: ", receipt);
       } catch (error: unknown) {
         //  console.log(error);
@@ -121,6 +125,7 @@ const useContentDAO = () => {
         //  console.log("transaction: ", transaction);
 
         const receipt = await transaction.wait();
+        receipt;
         //  console.log("receipt: ", receipt);
       } catch (error: unknown) {
         //  console.log(error);
@@ -144,6 +149,7 @@ const useContentDAO = () => {
         // console.log("transaction: ", transaction);
 
         const receipt = await transaction.wait();
+        receipt;
         // console.log("receipt: ", receipt);
       } catch (error: unknown) {
         // console.log(error);

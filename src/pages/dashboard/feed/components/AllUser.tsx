@@ -11,6 +11,7 @@ interface RegUser {
 const AllUser = () => {
   const allUsers = useGetRegUsers();
   const [content, fetchContent] = useFetchExclContent();
+  content;
 
   const handleUserClick = (creator: string) => {
     fetchContent(creator);

@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Flex,
+  Spinner,
   Text,
 } from "@chakra-ui/react";
 import useGetUserDetails from "../hooks/useGetUserDetails";
@@ -10,6 +11,8 @@ import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 const ProfileDetails = () => {
   const { address } = useWeb3ModalAccount();
   const { data: userDetails, loading, error } = useGetUserDetails(address);
+  error;
+
   return (
     <Box className="font-suse">
       <Box>
@@ -21,7 +24,7 @@ const ProfileDetails = () => {
           borderRadius={"100rem"}
           cursor={"pointer"}
         >
-          {!loading && !error && (
+          {loading ? <Spinner/> : (
             <Flex alignItems={"center"} gap={".4rem"}>
               {userDetails?.profileImage && (
                 <Avatar name={userDetails?.username} src={`https://${userDetails?.profileImage}`} />

@@ -41,7 +41,7 @@ const ContentMap: React.FC = () => {
     return [...(contentItems as ContentItem[])].reverse();
   }, [contentItems]);
 
-  if (loading) return <Box display="flex" justifyContent="center" alignItems="center" height="100vh"><Spinner /></Box>;
+  if (loading) return <Box display="flex" justifyContent="center" alignItems="center" height="50vh"><Spinner /></Box>;
   if (error) return <Box textAlign="center" color="red.500">Error: {error}</Box>;
 
   const handleFullContent = (e: ContentItem) => {
