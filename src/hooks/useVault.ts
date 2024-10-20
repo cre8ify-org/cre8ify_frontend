@@ -24,6 +24,7 @@ const useVault = () => {
 
       try {
         const transaction = await contract.stake(amount, signer.getAddress());
+        transaction;
         // console.log("transaction: ", transaction);
 
         // const receipt = await transaction.wait();
@@ -54,6 +55,7 @@ const useVault = () => {
         // console.log("transaction: ", transaction);
 
         const receipt = await transaction.wait();
+        receipt;
         // console.log("receipt: ", receipt);
       } catch (error: unknown) {
         console.log(error);
@@ -81,6 +83,7 @@ const useVault = () => {
         // console.log("transaction: ", transaction);
 
         const receipt = await transaction.wait();
+        receipt;
         // console.log("receipt: ", receipt);
       } catch (error: unknown) {
         // console.log(error);
@@ -107,6 +110,7 @@ const useVault = () => {
         // console.log("transaction: ", transaction);
 
         const receipt = await transaction.wait();
+        receipt;
         // console.log("receipt: ", receipt);
       } catch (error: unknown) {
         // console.log(error);
@@ -131,6 +135,7 @@ const useVault = () => {
         // console.log("transaction: ", transaction);
 
         const receipt = await transaction.wait();
+        receipt;
         // console.log("receipt: ", receipt);
 
         // Calculate DAO and developer share
@@ -142,6 +147,7 @@ const useVault = () => {
         // console.log("DAO transfer transaction: ", daoTransferTx);
 
         const daoTransferReceipt = await daoTransferTx.wait();
+        daoTransferReceipt;
         // console.log("DAO transfer receipt: ", daoTransferReceipt);
 
         // Transfer developer share to developer address
@@ -154,6 +160,7 @@ const useVault = () => {
         // console.log("Developer transfer transaction: ", developerTransferTx);
 
         const developerTransferReceipt = await developerTransferTx.wait();
+        developerTransferReceipt;
         // console.log("Developer transfer receipt: ", developerTransferReceipt);
       } catch (error: unknown) {
         // console.log(error);

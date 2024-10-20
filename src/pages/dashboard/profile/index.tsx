@@ -61,7 +61,7 @@ const ProfilePage: React.FC = () => {
             <nav className="hidden md:flex space-x-4">
               <Link to={"/explore"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Explore</Link>
               {/* <Link to={"/"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Create</Link> */}
-              <Link to={"/"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Learn</Link>
+              <Link to={"/coming-soon"} className="text-white py-1 px-1 transition-all hover:text-[#9333ea]">Learn</Link>
             </nav>
             <div className="flex items-center space-x-4">
               <ConnectButton />
