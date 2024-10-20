@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './output.css'
+import { configureWeb3Modal } from "./connection";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./output.css";
+import Home from "./pages/landingPage/home";
+import Feed from "./pages/dashboard/feed";
+import Subscription from "./pages/dashboard/subscription";
+import Analytics from "./pages/dashboard/analytics";
+import Overview from "./pages/DAOdashboard/Overview";
+import Proposals from "./pages/DAOdashboard/Proposals";
+import Voting from "./pages/DAOdashboard/Voting";
+import Treasury from "./pages/DAOdashboard/Treasury";
+import AboutUs from "./pages/landingPage/about-us";
+import FAQ from "./pages/landingPage/FAQ";
+import Support from "./pages/landingPage/support";
+import ProfilePage from "./pages/dashboard/profile";
+import ComingSoonPage from "./pages/comingSoon";
+
+configureWeb3Modal();
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/contact" element={<Support />} />
+          <Route path="/explore" element={<Feed />} />
+          <Route path="/profile/:address" element={<ProfilePage />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/subscription" element={<Subscription />} />
+          <Route path="/overview" element={<Overview />} />
+          <Route path="/proposals" element={<Proposals />} />
+          <Route path="/voting" element={<Voting />} />
+          <Route path="/treasury" element={<Treasury />} />
+          <Route path="/coming-soon" element={<ComingSoonPage />} />
+        </Routes>
+      </Router>
+  );
 }
 
-export default App
+export default App;

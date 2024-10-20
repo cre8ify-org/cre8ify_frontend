@@ -1,50 +1,53 @@
-# React + TypeScript + Vite
+![Cre8ifyLogo](public/images/Cre8ifyLogo.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Cre8ify is a decentralized content creation platform. Here, creators own their data and content, and control how they interact with fans and monetize their work. We achieve this through:
 
-Currently, two official plugins are available:
+- **Decentralized Storage:** Content is securely stored using blockchain, eliminating the risk of censorship or platform control.
+- **Smart Contract-based Monetization:** Creators can set their own prices and receive direct payments through secure smart contracts.
+- **Customizable Engagement Tools:** Live streams, polls, and interactive features help creators build deeper connections with their audience.
+- **Enhanced Security and Privacy:** End-to-end encryption and secure identity management ensure a safe and trustworthy environment.
+- **Community Governance:** A Decentralized Autonomous Organization (DAO) empowers creators to have a say in the platform's future.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Documentation
 
-## Expanding the ESLint configuration
+[Documentation](/Documentation.md)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The documentation provided encompasses a comprehensive outline a Business Plan, detailing the CCP's mission, market analysis, innovative solutions, revenue models, marketing strategies, etc.
 
-- Configure the top-level `parserOptions` property like this:
+## Run Locally
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Clone the project
+
+```bash
+  git clone https://github.com/Content-Creater-Platform/CCP-Frontend.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Install dependencies
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```bash
+  npm install
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+  or
+
+  yarn install
 ```
+
+Start the server
+
+```bash
+  npm run dev
+
+  or
+
+  yarn run dev
+```
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](https://github.com/Content-Creater-Platform/CCP-Frontend/issues) here 😏😏.
+
+## Show your support
+
+Give a ⭐️ if you like this project!
